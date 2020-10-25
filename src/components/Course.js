@@ -80,7 +80,39 @@ const Course = (props) => {
         onMouseLeave={handleHover}
         elevation={3}
       >
-        
+        <CardHeader
+          title={
+            <>
+              <Tooltip interactive
+                title={
+                  valid === '1' ? '' :
+                    <React.Fragment>
+                      {valid}
+                    </React.Fragment>
+                } placement="top-start">
+                <div className={valid === '1' ? classes.highlightCourseName : classes.invalidHighlight}>{coursePrefix}</div>
+              </Tooltip>
+              {courseName}
+              
+              {valid !== '1' ? <Tooltip interactive title="Manual Approve" placement="top-start">
+                <IconButton size="small" onClick={setValid}><CheckIcon /></IconButton>
+              </Tooltip> : ''}
+              {state.manualApproved ? <Tooltip interactive title="Undo Approval" placement="top-start">
+                <IconButton size="small" onClick={setValid}><CloseIcon /></IconButton>
+              </Tooltip> : ''}
+            </>
+          }
+          titleTypographyProps={{ variant: 'body2' }}
+          action={
+            <>
+              <div className={state.isHovering ? classes.showDelete : classes.hideDelete} onClick={handleDelete}>
+                <DeleteSharpIcon fontSize={'small'} />
+              </div>
+            </>
+          }
+          style={{ padding: 10 }}
+        >
+        </CardHeader>
       </Card>
     </div>
   );
